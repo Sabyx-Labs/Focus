@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prime Focus – A SABYX Labs Product</title>
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Prime Focus: live weekly timetable tracker. Independent study tool, not affiliated with any examination board.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prime Focus">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#3b82f6" stroke-width="3"/><circle cx="16" cy="16" r="4" fill="#93c5fd"/></svg>
+    <div><h1>Prime Focus</h1><span>A SABYX Labs Product</span></div>
+  </div>
+  <div class="clockbox" aria-live="off"><span id="clock">--:--:--</span><span id="ampm"></span><div id="today"></div></div>
+  <button id="install" class="btn" hidden>Install app</button>
+</header>
+
+<main>
+  <p id="range" class="banner warn" hidden></p>
+  <div class="cols">
+    <section class="left">
+      <article id="cur" class="card now">
+        <small id="curLabel">Loading</small>
+        <h2 id="curTitle">…</h2>
+        <p id="curTime"></p>
+        <div class="bar"><i id="curBar"></i></div>
+      </article>
+      <article class="card">
+        <small>Next activity in</small>
+        <div id="count" class="count">--:--:--</div>
+        <p id="nextTitle" class="muted"></p>
+        <small class="gap">Next three</small>
+        <ol id="nextList" class="next"></ol>
+      </article>
+      <article class="card">
+        <small>Today's progress</small>
+        <div class="bar"><i id="elapsed"></i></div><p id="elTxt" class="muted"></p>
+        <div class="bar thin"><i id="doneBar"></i></div><p id="doneTxt" class="muted"></p>
+      </article>
+    </section>
+
+    <section class="right">
+      <div class="nav">
+        <button id="prev" class="btn" aria-label="Previous day">‹ Previous</button>
+        <div class="navmid"><b id="viewDate"></b><span id="viewTheme"></span></div>
+        <button id="next" class="btn" aria-label="Next day">Next ›</button>
+      </div>
+      <button id="backToday" class="btn primary" hidden>Back to today</button>
+      <p id="flags" class="banner warn" hidden></p>
+      <div id="sat" class="banner" hidden>Saturday: school is assumed unless this is a holiday. <button id="satBtn" class="btn small"></button></div>
+      <ul id="timeline" class="timeline"></ul>
+    </section>
+  </div>
+
+  <details class="about">
+    <summary>About and install instructions</summary>
+    <p><b>Android (Chrome):</b> open the hosted HTTPS link, wait for the page to load fully once, then tap ⋮ → <i>Install app</i> (or <i>Add to Home screen</i>), or use the Install app button above. Launch it from your home screen; it works offline afterwards.</p>
+    <p><b>Desktop (Chrome / Edge):</b> click the install icon in the address bar, or menu → <i>Install Prime Focus</i>.</p>
+    <p>The schedule follows the day and time in India (IST) and covers 12 October 2026 – 11 January 2027. Fixed commitments (school, tuition) take priority; overlaps are flagged, never silently moved. Prime Focus is an independent study tool and is not affiliated with the ICSE board or any examination body.</p>
+  </details>
+</main>
+
+<footer>
+  <strong>PRIME FOCUS</strong>
+  <span>A SABYX Labs Product</span>
+  <span>Copyright © 2026 SABYX Labs. All rights reserved.</span>
+</footer>
+<script src="timetable.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
