@@ -110,9 +110,46 @@ $("#satBtn").onclick = () => { const k = iso(nowIST().day + off * DAY); try { lo
 tick(); setInterval(tick, 1000);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
 
-let dp; const ib = $("#install");
-addEventListener("beforeinstallprompt", e => { e.preventDefault(); dp = e; ib.hidden = false; });
-ib.onclick = async () => { if (dp) { dp.prompt(); await dp.userChoice; dp = null; ib.hidden = true; } };
-addEventListener("appinstalled", () => ib.hidden = true);
-if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+// ---- Theme ----
+const store = { get: (k, d) => { try { return localStorage.getItem(k) || d; } catch (_) { return d; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} } };
+const TC = { navy: "#0a1628", midnight: "#000000", light: "#eef3fb" };
+function applyTheme() {
+  const t = store.get("pf-theme", "navy"), a = store.get("pf-accent", "blue"), r = document.documentElement;
+  r.dataset.theme = t; r.dataset.accent = a;
+  const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = TC[t] || TC.navy;
+  document.querySelectorAll("[data-set-theme]").forEach(b => b.setAttribute("aria-pressed", b.dataset.setTheme === t));
+  document.querySelectorAll("[data-set-accent]").forEach(b => b.setAttribute("aria-pressed", b.dataset.setAccent === a));
+}
+const tp = $("#themePanel"), tb = $("#themeBtn");
+const closeTheme = () => { tp.hidden = true; tb.setAttribute("aria-expanded", "false"); };
+tb.onclick = e => { e.stopPropagation(); tp.hidden = !tp.hidden; tb.setAttribute("aria-expanded", String(!tp.hidden)); };
+tp.onclick = e => { e.stopPropagation(); const b = e.target.closest("button"); if (!b) return; if (b.dataset.setTheme) store.set("pf-theme", b.dataset.setTheme); if (b.dataset.setAccent) store.set("pf-accent", b.dataset.setAccent); applyTheme(); };
+document.addEventListener("click", closeTheme);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeTheme(); });
+applyTheme();
+
+// ---- Install ----
+let dp; const ib = $("#install"), how = $("#howto");
+const standalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const syncInstall = () => { ib.hidden = standalone(); };
+function showHow() {
+  const ua = navigator.userAgent, warn = $("#howWarn");
+  $("#howBody").textContent = /iPhone|iPad|iPod/.test(ua) ? "In Safari, tap the Share button, then choose Add to Home Screen."
+    : /Android/.test(ua) ? "In Chrome, tap the ⋮ menu, then choose Install app (or Add to Home screen)."
+    : "In Chrome or Edge, click the install icon at the right end of the address bar, or open the menu and choose Install Prime Focus.";
+  warn.hidden = isSecureContext && location.protocol !== "file:";
+  warn.textContent = location.protocol === "file:" ? "You opened this as a local file. Installing only works from the hosted HTTPS link (or localhost)." : "This page is not on HTTPS, so the browser will not offer installation. Open the HTTPS link instead.";
+  how.showModal ? how.showModal() : alert($("#howBody").textContent);
+}
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); dp = e; });
+ib.onclick = async () => { if (dp) { dp.prompt(); await dp.userChoice; dp = null; } else showHow(); };
+$("#howClose").onclick = () => how.close();
+addEventListener("appinstalled", () => { ib.hidden = true; });
+syncInstall();
+
+// ---- Offline ----
+if ("serviceWorker" in navigator) {
+  addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+  navigator.serviceWorker.ready.then(() => { $("#offline").hidden = false; }).catch(() => {});
+}
 })();

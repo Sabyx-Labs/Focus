@@ -1,5 +1,8 @@
 {
+  "id": "./index.html",
   "name": "Prime Focus",
+  "lang": "en",
+  "categories": ["education", "productivity"],
   "short_name": "Prime Focus",
   "description": "Live weekly timetable tracker. A SABYX Labs Product.",
   "start_url": "./index.html",

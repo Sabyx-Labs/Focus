@@ -13,15 +13,28 @@
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="style.css">
+<script>try{var d=document.documentElement;d.dataset.theme=localStorage.getItem("pf-theme")||"navy";d.dataset.accent=localStorage.getItem("pf-accent")||"blue"}catch(e){}</script>
 </head>
 <body>
 <header class="top">
   <div class="brand">
-    <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#3b82f6" stroke-width="3"/><circle cx="16" cy="16" r="4" fill="#93c5fd"/></svg>
+    <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" style="stroke:var(--blue)" stroke-width="3"/><circle cx="16" cy="16" r="4" style="fill:var(--sky)"/></svg>
     <div><h1>Prime Focus</h1><span>A SABYX Labs Product</span></div>
   </div>
   <div class="clockbox" aria-live="off"><span id="clock">--:--:--</span><span id="ampm"></span><div id="today"></div></div>
-  <button id="install" class="btn" hidden>Install app</button>
+  <div class="actions">
+    <span id="offline" class="chip" hidden>Offline ready</span>
+    <div class="menuwrap">
+      <button id="themeBtn" class="btn" aria-haspopup="true" aria-expanded="false">◐ Theme</button>
+      <div id="themePanel" class="pop" hidden>
+        <small>Theme</small>
+        <div class="seg"><button data-set-theme="navy">Navy</button><button data-set-theme="midnight">Midnight</button><button data-set-theme="light">Light</button></div>
+        <small>Accent</small>
+        <div class="sw"><button data-set-accent="blue" style="--c:#3b82f6" aria-label="Blue"></button><button data-set-accent="emerald" style="--c:#10b981" aria-label="Emerald"></button><button data-set-accent="violet" style="--c:#8b5cf6" aria-label="Violet"></button><button data-set-accent="amber" style="--c:#f59e0b" aria-label="Amber"></button><button data-set-accent="rose" style="--c:#f43f5e" aria-label="Rose"></button></div>
+      </div>
+    </div>
+    <button id="install" class="btn accent">Install app</button>
+  </div>
 </header>
 
 <main>
@@ -69,6 +82,12 @@
   </details>
 </main>
 
+<dialog id="howto">
+  <h3>Install Prime Focus</h3>
+  <p id="howWarn" class="banner warn" hidden></p>
+  <p id="howBody"></p>
+  <button id="howClose" class="btn primary">Got it</button>
+</dialog>
 <footer>
   <strong>PRIME FOCUS</strong>
   <span>A SABYX Labs Product</span>
