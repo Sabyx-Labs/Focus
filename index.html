@@ -18,14 +18,13 @@
 <body>
 <header class="top">
   <div class="brand">
-    <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" style="stroke:var(--blue)" stroke-width="3"/><circle cx="16" cy="16" r="4" style="fill:var(--sky)"/></svg>
-    <div><h1>Prime Focus</h1><span>A SABYX Labs Product</span></div>
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" style="stroke:var(--blue)" stroke-width="3"/><circle cx="16" cy="16" r="4" style="fill:var(--sky)"/></svg>
+    <div><h1>Prime Focus</h1><span>by SABYX Labs</span></div>
   </div>
-  <div class="clockbox" aria-live="off"><span id="clock">--:--:--</span><span id="ampm"></span><div id="today"></div></div>
   <div class="actions">
-    <span id="offline" class="chip" hidden>Offline ready</span>
+    <span id="offline" class="chip" hidden>● Offline ready</span>
     <div class="menuwrap">
-      <button id="themeBtn" class="btn" aria-haspopup="true" aria-expanded="false">◐ Theme</button>
+      <button id="themeBtn" class="btn ic" aria-label="Theme" aria-haspopup="true" aria-expanded="false">◐</button>
       <div id="themePanel" class="pop" hidden>
         <small>Theme</small>
         <div class="seg"><button data-set-theme="navy">Navy</button><button data-set-theme="midnight">Midnight</button><button data-set-theme="light">Light</button></div>
@@ -33,7 +32,8 @@
         <div class="sw"><button data-set-accent="blue" style="--c:#3b82f6" aria-label="Blue"></button><button data-set-accent="emerald" style="--c:#10b981" aria-label="Emerald"></button><button data-set-accent="violet" style="--c:#8b5cf6" aria-label="Violet"></button><button data-set-accent="amber" style="--c:#f59e0b" aria-label="Amber"></button><button data-set-accent="rose" style="--c:#f43f5e" aria-label="Rose"></button></div>
       </div>
     </div>
-    <button id="install" class="btn accent">Install app</button>
+    <button id="aboutBtn" class="btn ic" aria-label="About and install help">ⓘ</button>
+    <button id="install" class="btn accent">⬇ Install</button>
   </div>
 </header>
 
@@ -41,58 +41,66 @@
   <p id="range" class="banner warn" hidden></p>
   <div class="cols">
     <section class="left">
-      <article id="cur" class="card now">
-        <small id="curLabel">Loading</small>
-        <h2 id="curTitle">…</h2>
-        <p id="curTime"></p>
-        <div class="bar"><i id="curBar"></i></div>
+      <article id="cur" class="card hero">
+        <div class="clk"><span id="clock">--:--:--</span><span id="ampm"></span></div>
+        <div id="today" class="muted"></div>
+        <div class="now">
+          <small id="curLabel">Loading</small>
+          <h2 id="curTitle">…</h2>
+          <p id="curTime" class="muted"></p>
+          <div class="bar"><i id="curBar"></i></div>
+        </div>
       </article>
       <article class="card">
-        <small>Next activity in</small>
+        <small>Next in</small>
         <div id="count" class="count">--:--:--</div>
         <p id="nextTitle" class="muted"></p>
-        <small class="gap">Next three</small>
         <ol id="nextList" class="next"></ol>
       </article>
-      <article class="card">
-        <small>Today's progress</small>
-        <div class="bar"><i id="elapsed"></i></div><p id="elTxt" class="muted"></p>
-        <div class="bar thin"><i id="doneBar"></i></div><p id="doneTxt" class="muted"></p>
+      <article class="card stats">
+        <div><small>Elapsed</small><b id="elTxt"></b><div class="bar thin"><i id="elapsed"></i></div></div>
+        <div><small>Completed</small><b id="doneTxt"></b><div class="bar thin"><i id="doneBar"></i></div></div>
       </article>
     </section>
 
     <section class="right">
       <div class="nav">
-        <button id="prev" class="btn" aria-label="Previous day">‹ Previous</button>
+        <button id="prev" class="btn ic" aria-label="Previous day">‹</button>
         <div class="navmid"><b id="viewDate"></b><span id="viewTheme"></span></div>
-        <button id="next" class="btn" aria-label="Next day">Next ›</button>
+        <button id="next" class="btn ic" aria-label="Next day">›</button>
       </div>
-      <button id="backToday" class="btn primary" hidden>Back to today</button>
+      <button id="backToday" class="btn accent wide" hidden>Back to today</button>
       <p id="flags" class="banner warn" hidden></p>
-      <div id="sat" class="banner" hidden>Saturday: school is assumed unless this is a holiday. <button id="satBtn" class="btn small"></button></div>
-      <ul id="timeline" class="timeline"></ul>
+      <div id="sat" class="banner" hidden>Saturday <button id="satBtn" class="btn small"></button></div>
+      <div class="card tlcard"><ul id="timeline" class="timeline"></ul></div>
     </section>
   </div>
-
-  <details class="about">
-    <summary>About and install instructions</summary>
-    <p><b>Android (Chrome):</b> open the hosted HTTPS link, wait for the page to load fully once, then tap ⋮ → <i>Install app</i> (or <i>Add to Home screen</i>), or use the Install app button above. Launch it from your home screen; it works offline afterwards.</p>
-    <p><b>Desktop (Chrome / Edge):</b> click the install icon in the address bar, or menu → <i>Install Prime Focus</i>.</p>
-    <p>The schedule follows the day and time in India (IST) and covers 12 October 2026 – 11 January 2027. Fixed commitments (school, tuition) take priority; overlaps are flagged, never silently moved. Prime Focus is an independent study tool and is not affiliated with the ICSE board or any examination body.</p>
-  </details>
 </main>
 
-<dialog id="howto">
-  <h3>Install Prime Focus</h3>
-  <p id="howWarn" class="banner warn" hidden></p>
-  <p id="howBody"></p>
-  <button id="howClose" class="btn primary">Got it</button>
-</dialog>
 <footer>
   <strong>PRIME FOCUS</strong>
   <span>A SABYX Labs Product</span>
   <span>Copyright © 2026 SABYX Labs. All rights reserved.</span>
 </footer>
+
+<div id="hc" class="hc" role="tooltip"></div>
+
+<dialog id="about">
+  <h3>About Prime Focus</h3>
+  <p class="muted">Follows India time (IST). Period: 12 Oct 2026 – 11 Jan 2027. School and tuition are fixed; overlaps are flagged, never moved.</p>
+  <p><b>Install</b><br><span class="muted">Android: Chrome ⋮ → Install app · iPhone: Share → Add to Home Screen · Desktop: install icon in the address bar.</span></p>
+  <p class="muted">Independent study tool. Not affiliated with the ICSE board or any examination body.</p>
+  <div class="brandfoot"><strong>PRIME FOCUS</strong><span>A SABYX Labs Product</span><span>Copyright © 2026 SABYX Labs. All rights reserved.</span></div>
+  <button id="aboutClose" class="btn accent">Close</button>
+</dialog>
+
+<dialog id="howto">
+  <h3>Install Prime Focus</h3>
+  <p id="howWarn" class="banner warn" hidden></p>
+  <p id="howBody"></p>
+  <p id="howDiag" class="muted"></p>
+  <button id="howClose" class="btn accent">Got it</button>
+</dialog>
 <script src="timetable.js"></script>
 <script src="script.js"></script>
 </body>
